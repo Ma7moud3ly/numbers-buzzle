@@ -73,6 +73,7 @@
 
 	$(".congrats").on('click', function () {
 		$("#title").css("visibility","visible");
+		$("#play").text("Play");
 		done=false;
 		$(this).fadeOut(1000);	
 	});
@@ -101,48 +102,43 @@
 			nn1.css("background-color","#f0f5f5")
 			nn2.css("background-color","#f0f5f5")
 			nn3.css("background-color","#f0f5f5")
-			done=true;
+			return true;
 		}else{
 			nn1.css("background-color","#FFF")
 			nn2.css("background-color","#FFF")
 			nn3.css("background-color","#FFF")
-			done=false;
+			return false;
 		}
 	}
 
 
 	function checkCells(){
-		check(n1,n2,n3);
-
-		check(n1,n4,n7);
-		check(n2,n5,n8);
-		check(n3,n6,n9);
-
-		check(n3,n5,n7);
-		check(n1,n5,n9);
+		var b1=check(n1,n2,n3);
+		var b2=check(n1,n4,n7);
+		var b3=check(n2,n5,n8);
+		var b4=check(n3,n6,n9);
+		var b5=	check(n3,n5,n7);
+		var b6=check(n1,n5,n9);
 
         ////////////////
 
-        check(n4,n5,n6);
-
-        check(n1,n4,n7);
-        check(n2,n5,n8);
-        check(n3,n6,n9);
-
-        check(n3,n5,n7);
-        check(n1,n5,n9);
+        var b7=check(n4,n5,n6);
+        var b8=check(n1,n4,n7);
+        var b9=check(n2,n5,n8);
+        var b10=check(n3,n6,n9);
+        var b11=check(n3,n5,n7);
+        var b12=check(n1,n5,n9);
 
         ////////////////
 
-        check(n7,n8,n9);
+        var b13=check(n7,n8,n9);
+        var b14=check(n1,n4,n7);
+        var b15=check(n2,n5,n8);
+        var b16=check(n3,n6,n9);
+        var b17=check(n3,n5,n7);
+        var b18=check(n1,n5,n9);
 
-        check(n1,n4,n7);
-        check(n2,n5,n8);
-        check(n3,n6,n9);
-
-        check(n3,n5,n7);
-        check(n1,n5,n9);
-
+        done=b1&&b2&&b3&&b4&&b5&&b6&&b7&&b8&&b9&&b10&&b11&&b12&&b13&&b14&&b15&&b16&&b17&&b18;
     }
 
     $(".box").on('drop', function (ev) {
