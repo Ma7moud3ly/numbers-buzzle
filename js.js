@@ -80,7 +80,8 @@
 
 
 	$("body").on('click', function () {
-		$(".num").css("box-shadow","inset 0px 0px 0px 2px #669999");
+		if(is_touch_device()==false)
+			$(".num").css("box-shadow","inset 0px 0px 0px 2px #669999");
 	});
 
 	/*drag and drop elements and change colors*/
@@ -141,10 +142,9 @@
         done=b1&&b2&&b3&&b4&&b5&&b6&&b7&&b8&&b9&&b10&&b11&&b12&&b13&&b14&&b15&&b16&&b17&&b18;
     }
 
-    $(".box").on('drop', function (ev) {
-    	ev.preventDefault();
-    	var id1 = ev.originalEvent.dataTransfer.getData("id");
-    	var id2=ev.target.id;
+
+    //swap numbers by Drag and Drop on non-screen
+    function swap(id1,id2){
     	var val1=$("#"+id1).text();
     	var val2=$("#"+id2).text();
     	$("#"+id1).text(val2)
@@ -154,6 +154,44 @@
     	checkCells();
     	$(".num").css("box-shadow","inset 0px 0px 0px 2px #669999");
     	$("#"+id2).css("box-shadow","inset 0px 0px 0px 2px red");
+    }
+
+
+    $(".box").on('drop',function(ev){
+    	ev.preventDefault();
+    	var id1 = ev.originalEvent.dataTransfer.getData("id");
+    	var id2=ev.target.id;
+    	swap(id1,id2);
     });
 
+    function is_touch_device() {
+    	try {  
+    		document.createEvent("TouchEvent");  
+    		return true;  
+    	} catch (e) {  
+    		return false;  
+    	} 
+    }
+
+    var target=false;
+    var target_id='';
+
+    //swap numbers on toutch screen
+    if(is_touch_device()){
+    	$(".num").on('click',function(ev){
+    		if(target==false){
+    			target_id=$(this).attr("id")
+    			$(".num").css("box-shadow","inset 0px 0px 0px 2px #669999");
+    			$(this).css("box-shadow","inset 0px 0px 0px 2px red");
+    			target=true;
+    		}else{
+    			var id2=$(this).attr("id")
+    			$(".num").css("box-shadow","inset 0px 0px 0px 2px #669999");
+    			$(this).css("box-shadow","inset 0px 0px 0px 2px red");
+    			target=false;
+    			if(target_id!=id2)
+    				swap(target_id,id2)
+    		}
+    	});
+    }
 });

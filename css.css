@@ -6,6 +6,19 @@
 	width: 400px;
 	height: 400px;
 }
+
+
+
+@media only screen 
+and (max-device-width : 400px) {
+
+	.box{
+		width:97%;
+	}
+
+
+}
+
 .num{
 
 	box-shadow:inset 0px 0px 0px 2px #669999;
